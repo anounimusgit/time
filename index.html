@@ -14,7 +14,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      position: relative;
+      position: relative; 
       overflow: hidden;
     }
     .container {
@@ -23,8 +23,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      position: relative;
+      z-index: 10; 
     }
     h1 {
       font-size: 36px;
@@ -35,12 +34,12 @@
       font-weight: bold;
       color: #fff;
     }
+    /* Estilo das imagens */
     .floating-img {
       position: absolute;
-      width: 80px;
+      width: 100px;
       opacity: 0;
-      transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-      z-index: 5;
+      transition: opacity 2s ease-in-out;
     }
   </style>
 </head>
@@ -87,49 +86,24 @@
 
   function animateImages() {
     const images = document.querySelectorAll('.floating-img');
-
-    function randomPosition(img) {
-      const container = document.querySelector('.container');
-      const containerRect = container.getBoundingClientRect();
-      const padding = 20;
-      const maxX = window.innerWidth - 90; // Ajustado para o tamanho da imagem
-      const maxY = window.innerHeight - 90; 
-
-      let randomX, randomY;
-
-      do {
-        randomX = Math.floor(Math.random() * maxX);
-        randomY = Math.floor(Math.random() * maxY);
-      } while (
-        (randomX > containerRect.left - padding && randomX < containerRect.right + padding) &&
-        (randomY > containerRect.top - padding && randomY < containerRect.bottom + padding)
-      );
-
-      img.style.left = randomX + 'px';
-      img.style.top = randomY + 'px';
-    }
-
     images.forEach(img => {
-      function fadeInOut() {
-        img.style.opacity = 1;
-        img.style.transform = 'scale(1.1)';
-        randomPosition(img);
+      setInterval(() => {
+        const randomX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const randomY = Math.floor(Math.random() * (window.innerHeight - 100));
+        img.style.left = randomX + 'px';
+        img.style.top = randomY + 'px';
 
+        img.style.opacity = 1;
         setTimeout(() => {
           img.style.opacity = 0;
-          img.style.transform = 'scale(1)';
-        }, 3000); // Exibe por 3 segundos
-
-        requestAnimationFrame(() => setTimeout(fadeInOut, 5000)); // Reaparece a cada 5 segundos, mais leve
-      }
-
-      fadeInOut();
+        }, 3000); 
+      }, Math.random() * 5000 + 3000); 
     });
   }
 
   window.onload = () => {
-    startCountdown();
-    animateImages();
+    startCountdown(); 
+    animateImages();   
   };
 </script>
 
