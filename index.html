@@ -90,16 +90,17 @@
     const usedPositions = [];
 
     images.forEach(img => {
-      setTimeout(() => {
+      function loopImageAnimation() {
         const container = document.querySelector('.container');
         const containerRect = container.getBoundingClientRect();
         const padding = 20;
 
         const maxX = window.innerWidth - 110;
-        const maxY = window.innerHeight - 110; 
+        const maxY = window.innerHeight - 110;
 
         let randomX, randomY;
 
+        // Garante que as imagens não se sobreponham e não fiquem sobre o cronômetro
         do {
           randomX = Math.floor(Math.random() * maxX);
           randomY = Math.floor(Math.random() * maxY);
@@ -113,7 +114,6 @@
 
         img.style.left = randomX + 'px';
         img.style.top = randomY + 'px';
-
         img.style.opacity = 1;
         img.style.transform = 'scale(1.1)';
 
@@ -122,8 +122,12 @@
         setTimeout(() => {
           img.style.opacity = 0;
           img.style.transform = 'scale(1)';
-        }, 4000);
-      }, Math.random() * 2000); 
+        }, 4000); // Exibe a imagem por 4 segundos
+
+        setTimeout(loopImageAnimation, Math.random() * 2000 + 1000); // Reinicia a animação
+      }
+
+      loopImageAnimation();
     });
   }
 
