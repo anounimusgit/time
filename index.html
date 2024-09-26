@@ -37,9 +37,9 @@
     }
     .floating-img {
       position: absolute;
-      width: 100px;
+      width: 80px;
       opacity: 0;
-      transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+      transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
       z-index: 5;
     }
   </style>
@@ -92,8 +92,8 @@
       const container = document.querySelector('.container');
       const containerRect = container.getBoundingClientRect();
       const padding = 20;
-      const maxX = window.innerWidth - 110;
-      const maxY = window.innerHeight - 110;
+      const maxX = window.innerWidth - 90; // Ajustado para o tamanho da imagem
+      const maxY = window.innerHeight - 90; 
 
       let randomX, randomY;
 
@@ -120,10 +120,10 @@
           img.style.transform = 'scale(1)';
         }, 3000); // Exibe por 3 segundos
 
-        setTimeout(fadeInOut, 5000); // Reaparece a cada 5 segundos
+        requestAnimationFrame(() => setTimeout(fadeInOut, 5000)); // Reaparece a cada 5 segundos, mais leve
       }
 
-      fadeInOut(); // Começa imediatamente ao carregar
+      fadeInOut();
     });
   }
 
