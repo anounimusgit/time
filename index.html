@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contagem Regressiva com Imagens</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffb6c1;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      position: relative; 
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background-color: #db7093;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10; 
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .time {
+      font-size: 48px;
+      font-weight: bold;
+      color: #fff;
+    }
+    /* Estilo das imagens */
+    .floating-img {
+      position: absolute;
+      width: 100px;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Contagem Regressiva =)</h1>
+  <div class="time" id="countdown">00:00:00</div>
+</div>
+
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/1.jpg" class="floating-img" id="img1">
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/2.jpg" class="floating-img" id="img2">
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/3.jpg" class="floating-img" id="img3">
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/4.jpg" class="floating-img" id="img4">
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/5.jpg" class="floating-img" id="img5">
+<img src="https://raw.githubusercontent.com/anounimusgit/time/main/6.jpg" class="floating-img" id="img6">
+
+<script>
+  function startCountdown() {
+    const targetDate = new Date();
+    targetDate.setHours(22, 30, 0);
+
+    function updateCountdown() {
+      const now = new Date();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        document.getElementById("countdown").innerHTML = "Chegou a hora!";
+        clearInterval(interval);
+        return;
+      }
+
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML = 
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  }
+
+  function animateImages() {
+    const images = document.querySelectorAll('.floating-img');
+    images.forEach(img => {
+      setInterval(() => {
+        const randomX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const randomY = Math.floor(Math.random() * (window.innerHeight - 100));
+        img.style.left = randomX + 'px';
+        img.style.top = randomY + 'px';
+
+        img.style.opacity = 1;
+        setTimeout(() => {
+          img.style.opacity = 0;
+        }, 3000); 
+      }, Math.random() * 5000 + 3000); 
+    });
+  }
+
+  window.onload = () => {
+    startCountdown(); 
+    animateImages();   
+  };
+</script>
+
+</body>
+</html>
