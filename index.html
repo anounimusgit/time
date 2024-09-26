@@ -39,7 +39,7 @@
       position: absolute;
       width: 100px;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 2s ease-in-out, transform 2s ease-in-out;
       z-index: 5;
     }
   </style>
@@ -90,13 +90,13 @@
     const usedPositions = [];
 
     images.forEach(img => {
-      setInterval(() => {
+      setTimeout(() => {
         const container = document.querySelector('.container');
         const containerRect = container.getBoundingClientRect();
         const padding = 20;
 
-        const maxX = window.innerWidth - 100;
-        const maxY = window.innerHeight - 100;
+        const maxX = window.innerWidth - 110;
+        const maxY = window.innerHeight - 110; 
 
         let randomX, randomY;
 
@@ -115,13 +115,15 @@
         img.style.top = randomY + 'px';
 
         img.style.opacity = 1;
+        img.style.transform = 'scale(1.1)';
 
         usedPositions.push({ x: randomX, y: randomY });
 
         setTimeout(() => {
           img.style.opacity = 0;
-        }, 3000);
-      }, Math.random() * 5000 + 3000);
+          img.style.transform = 'scale(1)';
+        }, 4000);
+      }, Math.random() * 2000); 
     });
   }
 
