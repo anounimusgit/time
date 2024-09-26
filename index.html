@@ -87,6 +87,8 @@
 
   function animateImages() {
     const images = document.querySelectorAll('.floating-img');
+    const usedPositions = [];
+
     images.forEach(img => {
       setInterval(() => {
         const container = document.querySelector('.container');
@@ -102,14 +104,20 @@
           randomX = Math.floor(Math.random() * maxX);
           randomY = Math.floor(Math.random() * maxY);
         } while (
-          randomX > containerRect.left - padding && randomX < containerRect.right + padding &&
-          randomY > containerRect.top - padding && randomY < containerRect.bottom + padding
+          usedPositions.some(pos => 
+            Math.abs(randomX - pos.x) < 110 && Math.abs(randomY - pos.y) < 110
+          ) || 
+          (randomX > containerRect.left - padding && randomX < containerRect.right + padding &&
+           randomY > containerRect.top - padding && randomY < containerRect.bottom + padding)
         );
 
         img.style.left = randomX + 'px';
         img.style.top = randomY + 'px';
 
         img.style.opacity = 1;
+
+        usedPositions.push({ x: randomX, y: randomY });
+
         setTimeout(() => {
           img.style.opacity = 0;
         }, 3000);
